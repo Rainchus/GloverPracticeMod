@@ -16,3 +16,7 @@ BNEZ t1, dmaBusyLoop
 NOP
 JAL bssClear
 NOP
+
+.org 0x8012C714
+J perFrameHook
+NOP

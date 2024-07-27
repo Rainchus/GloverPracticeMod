@@ -15,3 +15,11 @@ bssClear:
     bssClearBreak:
     JAL 0x80139DE8
     NOP
+
+perFrameHook:
+JAL perFrameHookC
+NOP
+JAL 0x80145680
+NOP
+J 0x8012C71C
+NOP
