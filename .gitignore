@@ -1,0 +1,6 @@
+obj/
+*.z64
+.ninja_deps
+.ninja_log
+build.ninja
+syms.txt
