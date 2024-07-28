@@ -1,11 +1,30 @@
 #include "types.h"
 
 #define SCREEN_WIDTH 320
-// Define white color in RGB565 format
-#define WHITE 0xFFFF
+// Define colors in RGB565 format
+#define WHITE       0xFFFF  // 255, 255, 255
+#define BLACK       0x0000  // 0, 0, 0
+#define RED         0xF800  // 255, 0, 0
+#define GREEN       0x07E0  // 0, 255, 0
+#define BLUE        0x001F  // 0, 0, 255
+#define YELLOW      0xFFE0  // 255, 255, 0
+#define CYAN        0x07FF  // 0, 255, 255
+#define MAGENTA     0xF81F  // 255, 0, 255
+#define GRAY        0x8410  // 128, 128, 128
+#define ORANGE      0xFD20  // 255, 165, 0
+#define PINK        0xF81F  // 255, 192, 203
+#define PURPLE      0x780F  // 128, 0, 128
+#define BROWN       0xA145  // 165, 42, 42
+#define LIGHT_GRAY  0xC618  // 192, 192, 192
+#define DARK_GRAY   0x4A49  // 74, 74, 74
+#define LIGHT_GREEN 0x07EF  // 144, 238, 144
+#define DARK_GREEN  0x03E0  // 0, 128, 0
+#define LIGHT_BLUE  0xAEDC  // 173, 216, 230
+#define DARK_BLUE   0x0010  // 0, 0, 139
 
 void func_80145680(int);
 void PrintChar(char*, char);
+extern u8 gGameMode;
 extern int textXPos;
 extern int textYPos;
 extern const u8 font[256][8];
@@ -47,13 +66,19 @@ extern u16* curFrameBuffer2;
 
 u16* GetCurrentFrameBuffer(void);
 void osViSwapBuffer(u16*);
-s32 FrameCounter = 0;
+s32 frameCounter = 0;
+s32 drawBool = 0;
+void osWritebackDCacheAll(void);
+void osInvalDCache(void*, s32);
 
 void DrawHookC(u16* frameBufToSwapTo) {
-    FrameCounter++;
-    if (FrameCounter < 208 && FrameCounter > 80) {
+    frameCounter++;
+    if (frameCounter < 208 && frameCounter > 80) {
+        osInvalDCache((void*)0x80000000, 0x2000);
         draw_string(frameBufToSwapTo, 10, 10, "github.com/Rainchus/GloverPracticeMod", WHITE);
+        osWritebackDCacheAll();
     }
+
     osViSwapBuffer(frameBufToSwapTo);
 }
 

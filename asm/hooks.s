@@ -45,3 +45,11 @@ drawHook:
     NOP
     J 0x8017FF20
     NOP
+
+drawHook2:
+    LI at, drawBool
+    ORI v0, r0, 1
+    SW v0, 0x0000 (at)
+    NOP
+    JR v1
+    NOP
