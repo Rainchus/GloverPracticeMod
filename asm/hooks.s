@@ -17,9 +17,31 @@ bssClear:
     NOP
 
 perFrameHook:
-JAL perFrameHookC
-NOP
-JAL 0x80145680
-NOP
-J 0x8012C71C
-NOP
+    JAL perFrameHookC
+    NOP
+    JAL 0x80145680 //restore from hook
+    NOP
+    J 0x8012C71C //return from hook
+    NOP
+
+perFrameHook2:
+    JAL perFrameHookC
+    NOP
+    J 0x8013DC20 //restore from hook
+    NOP
+
+perFrameHook3:
+    JAL perFrameHookC
+    NOP
+    LUI v0, 0x801F
+    LBU v0, 0xC7D2 (v0)
+    J 0x8012C5E8
+    NOP
+
+drawHook:
+    LW v0, 0x0014 (fp)
+    LW a0, 0x000C (v0)
+    JAL DrawHookC
+    NOP
+    J 0x8017FF20
+    NOP

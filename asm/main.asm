@@ -5,10 +5,11 @@
 .include "asm\bootPatch.asm"
 .include "asm\symbols.asm"
 
-.headersize 0x7FC00000
+.headersize 0x7FC80000
 .org 0x80400000
 PAYLOAD_START_RAM:
 .include "asm\hooks.s"
+.importobj "obj\font.o"
 .importobj "obj\main.o"
 
 .align 8

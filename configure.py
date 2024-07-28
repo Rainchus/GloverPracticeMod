@@ -21,8 +21,9 @@ header = f"""
 .open "rom/{rom_name}.z64", "rom/{rom_mod_name}", 0 // Open the ROM file
 """
 
+#store at rom address 0x7FC80000
 payload_start_text = """
-.headersize 0x7FC00000
+.headersize 0x7FC80000
 .org 0x80400000
 PAYLOAD_START_RAM:
 """
